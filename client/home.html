@@ -1,0 +1,33 @@
+<template name = "home">
+		{{#if currentUser}}
+
+
+		{{else}}
+         <div class="container">
+         	<div class="row">
+         		<div class="col-lg-12">
+         			<h1 
+         			style="text-align: center;
+         			       margin-top: 37vh;
+         			       font-size: 57px;
+         			       font-family: cursive;
+         			       font-weight: 600
+         			       ">
+         				<span style="color: red">welcome</span> 
+         				<span style="color: #e2e248">to</span> 
+         				<span style="color: blue">color</span> 
+         				<span style="color: blue">game</span> 
+         			</h1>
+         		</div>
+
+         	</div>
+         	
+         		<div class="enter">
+                  <input type="text" name="name" class="name form-control" 
+                  placeholder="enter your name ">
+         			<button class="btn btn-info game">play</button> 
+         		</div>
+        
+         </div>
+		{{/if}}	
+</template>

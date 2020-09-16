@@ -1,0 +1,41 @@
+<template name = "score">
+	<div class="container" style="position: relative;height: 100%">
+		<div class="row" align="center">
+			<div class="col-lg-4 mov">
+	   	        <div class="row" align="center" style="margin-bottom: 10px">
+                 <h2>Scoreboard</h2>
+	   	        </div>
+                <div class="movCont" align="center" id="movCont">
+                	
+                    {{#each allScore}}
+	   	        		<div class="row linkVid" dir="ltr">{{name}} : {{score}}</div>
+	   	        	{{/each}}	
+        
+	        	</div>
+	        </div>
+
+		{{#with yourScore}}
+		<div class="col-lg-8 player-score" align="center" style="">
+
+			<div >
+			   <h1>
+			   	<span style="color: purple">your</span>
+			   	<span style="color: #dbf343">score</span>
+			   </h1>
+			   <span 
+			   style="color: red ; 
+			   font-family: cursive;
+		       font-size: 75px;
+               font-weight: 600
+			   ">
+			    {{yourScore}}
+			   </span>	
+			</div>   		
+	    </div>
+		{{/with}}				
+		</div>
+
+		
+	</div>
+		
+</template>
