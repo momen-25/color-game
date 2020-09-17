@@ -17,6 +17,159 @@ import '../routes.js';
 import './login.js';
 import '../collection.js';
 
+var pColor = function (event) {
+   if (Session.get("playerSelectedColor")) {
+        //change color
+        Session.set("playerSelectedColor" , $(event.target).attr('data'));
+        console.log(Session.get("playerSelectedColor"))
+        $(event.target).addClass("selected");
+        $(event.target).parent().siblings().children().removeClass("selected");
+    } else {
+       Session.set("playerSelectedColor" , $(event.target).attr('data'));
+       $(event.target).addClass("selected");
+       console.log(Session.get("playerSelectedColor"))
+
+
+         if (Session.get("game1SelectedColor") && Session.get("game2SelectedColor")) {
+           console.log("player game")
+           if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="red") && (Session.get("game2SelectedColor")==="red"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="orange")) {
+                  console.log('done^2');
+                  $(event.target).addClass("selected");
+                  $(".selected").css("display","none");
+                 Session.set("playerSelectedColor",false)
+                 Session.set("game1SelectedColor",false);
+                 Session.set("game2SelectedColor",false);
+                 Session.set("score" , Session.get("score") + 10);
+                 console.log(Session.get("score"))               
+
+           }
+
+
+            else {if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="green")) {
+                  console.log('done^3');
+                  $(event.target).addClass("selected");
+                  $(".selected").css("display","none");
+                 Session.set("playerSelectedColor",false)
+                 Session.set("game1SelectedColor",false);
+                 Session.set("game2SelectedColor",false);
+                 Session.set("score" , Session.get("score") + 10) 
+                 console.log(Session.get("score"))               
+
+            } else {if ((Session.get("game1SelectedColor")==="red"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="red")&&(Session.get("playerSelectedColor")==="purple")) {
+                  console.log('done^4');
+                  $(event.target).addClass("selected");
+                  $(".selected").css("display","none");
+                 Session.set("playerSelectedColor",false)
+                 Session.set("game1SelectedColor",false);
+                 Session.set("game2SelectedColor",false);
+                 Session.set("score" , Session.get("score") + 10)
+                 console.log(Session.get("score"))               
+            } else {
+              if (Session.get("game1SelectedColor")&&Session.get("game2SelectedColor")&&Session.get("playerSelectedColor")) {
+                 $(event.target).addClass("selected");
+                 Session.set("playerSelectedColor",false)
+                 Session.set("game1SelectedColor",false);
+                 Session.set("game2SelectedColor",false);
+                 $(".selected").removeClass("selected");                 
+              }
+            }
+                  
+            }
+          }
+
+   //simple match
+        } else {
+                if (Session.get("playerSelectedColor") === Session.get("game1SelectedColor")) {
+                 $(event.target).addClass("selected");
+                 console.log ('simple match');
+                 $(".selected").css("display","none");
+                 Session.set("playerSelectedColor",false)
+                 Session.set("game1SelectedColor",false);
+                 Session.set("score" , Session.get("score") + 5)
+                 console.log(Session.get("score"))               
+
+                } else {
+                 if (Session.get("playerSelectedColor")&&Session.get("game1SelectedColor")) {
+                 $(event.target).addClass("selected");
+                 Session.set("playerSelectedColor",false)
+                 Session.set("game1SelectedColor",false);
+                 $(".selected").removeClass("selected");
+                 }else {
+                  $(event.target).addClass("selected");
+                  console.log(Session.get("playerSelectedColor"))
+                 }
+
+                }
+         }
+
+    }
+
+}
+
+var gColor = function (event) {
+  if (Session.get("game1SelectedColor")) {
+        Session.set("game2SelectedColor" , $(event.target).attr('data'));
+        $(event.target).addClass("selected");
+        if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="red") && (Session.get("game2SelectedColor")==="red"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="orange")) {
+                  console.log('done^2');
+                  $(".selected").css("display","none");
+                 Session.set("playerSelectedColor",false)
+                 Session.set("game1SelectedColor",false);
+                 Session.set("game2SelectedColor",false);          
+
+        }else{
+          if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="green")) {
+                  console.log('done^3');
+                  $(".selected").css("display","none");
+                 Session.set("playerSelectedColor",false)
+                 Session.set("game1SelectedColor",false);
+                 Session.set("game2SelectedColor",false); 
+          } else {
+            if ((Session.get("game1SelectedColor")==="red"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="red")&&(Session.get("playerSelectedColor")==="purple")) {
+                  console.log('done^4');
+                  $(".selected").css("display","none");
+                 Session.set("playerSelectedColor",false)
+                 Session.set("game1SelectedColor",false);
+                 Session.set("game2SelectedColor",false); 
+            } else {
+              if (Session.get("game1SelectedColor")&&Session.get("game2SelectedColor")&&Session.get("playerSelectedColor")) {
+                 Session.set("playerSelectedColor",false)
+                 Session.set("game1SelectedColor",false);
+                 Session.set("game2SelectedColor",false);
+                 $(".selected").removeClass("selected");                
+              }
+            }
+          }
+        }
+//simple match....
+    } else {
+
+      Session.set("game1SelectedColor" , $(event.target).attr('data'));
+      $(event.target).addClass("selected");
+      if (Session.get("game1SelectedColor")===Session.get("playerSelectedColor")) {
+      console.log(Session.get("game1SelectedColor"));
+      $(".selected").css("display","none");
+      Session.set("game1SelectedColor",false);
+      Session.set("playerSelectedColor",false)
+      Session.set("score" , Session.get("score") + 5)
+
+
+      } else {
+          if (Session.get("game1SelectedColor")&&Session.get("playerSelectedColor")) {
+            $(event.target).addClass("selected");
+            Session.set("game1SelectedColor",false);
+            Session.set("playerSelectedColor",false);
+            $(".selected").removeClass("selected");  
+
+          } else {
+            $(event.target).addClass("selected");
+            console.log(Session.get("game1SelectedColor"))
+          }
+      }
+
+    }
+}
+
 Template.home.events({
   "click .game":function (event) {
     
@@ -66,157 +219,10 @@ Template.game.helpers({
 
 Template.game.events({
   "click .pColor" : function (event) {
-    if (Session.get("playerSelectedColor")) {
-        //change color
-        Session.set("playerSelectedColor" , $(event.target).attr('data'));
-        console.log(Session.get("playerSelectedColor"))
-        $(event.target).addClass("selected");
-        $(event.target).parent().siblings().children().removeClass("selected");
-    } else {
-       Session.set("playerSelectedColor" , $(event.target).attr('data'));
-       $(event.target).addClass("selected");
-       console.log(Session.get("playerSelectedColor"))
-
-
-         if (Session.get("game1SelectedColor") && Session.get("game2SelectedColor")) {
-           console.log("player game")
-           if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="red") && (Session.get("game2SelectedColor")==="red"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="orange")) {
-                  console.log('done^2');
-                  $(event.target).addClass("selected");
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 10);
-                 console.log(Session.get("score"))               
-
-           }
-
-
-            else {if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="green")) {
-                  console.log('done^3');
-                  $(event.target).addClass("selected");
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 10) 
-                 console.log(Session.get("score"))               
-
-            } else {if ((Session.get("game1SelectedColor")==="red"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="red")&&(Session.get("playerSelectedColor")==="purple")) {
-                  console.log('done^4');
-                  $(event.target).addClass("selected");
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 10)
-                 console.log(Session.get("score"))               
-            } else {
-              if (Session.get("game1SelectedColor")&&Session.get("game2SelectedColor")&&Session.get("playerSelectedColor")) {
-                 $(event.target).addClass("selected");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 $(".selected").removeClass("selected");                 
-              }
-            }
-                  
-            }
-          }
-
-   //simple match
-        } else {
-                if (Session.get("playerSelectedColor") === Session.get("game1SelectedColor")) {
-                 $(event.target).addClass("selected");
-                 console.log ('simple match');
-                 $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 5)
-                 console.log(Session.get("score"))               
-
-                } else {
-                 if (Session.get("playerSelectedColor")&&Session.get("game1SelectedColor")) {
-                 $(event.target).addClass("selected");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 $(".selected").removeClass("selected");
-                 }else {
-                  $(event.target).addClass("selected");
-                  console.log(Session.get("playerSelectedColor"))
-                 }
-
-                }
-         }
-
-    }
-   
+      pColor(event)
   },
   "click .gColor" : function (event) {
-
-    if (Session.get("game1SelectedColor")) {
-        Session.set("game2SelectedColor" , $(event.target).attr('data'));
-        $(event.target).addClass("selected");
-        if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="red") && (Session.get("game2SelectedColor")==="red"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="orange")) {
-                  console.log('done^2');
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);          
-
-        }else{
-          if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="green")) {
-                  console.log('done^3');
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false); 
-          } else {
-            if ((Session.get("game1SelectedColor")==="red"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="red")&&(Session.get("playerSelectedColor")==="purple")) {
-                  console.log('done^4');
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false); 
-            } else {
-              if (Session.get("game1SelectedColor")&&Session.get("game2SelectedColor")&&Session.get("playerSelectedColor")) {
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 $(".selected").removeClass("selected");                
-              }
-            }
-          }
-        }
-//simple match....
-    } else {
-
-      Session.set("game1SelectedColor" , $(event.target).attr('data'));
-      $(event.target).addClass("selected");
-      if (Session.get("game1SelectedColor")===Session.get("playerSelectedColor")) {
-      console.log(Session.get("game1SelectedColor"));
-      $(".selected").css("display","none");
-      Session.set("game1SelectedColor",false);
-      Session.set("playerSelectedColor",false)
-      Session.set("score" , Session.get("score") + 5)
-
-
-      } else {
-          if (Session.get("game1SelectedColor")&&Session.get("playerSelectedColor")) {
-            $(event.target).addClass("selected");
-            Session.set("game1SelectedColor",false);
-            Session.set("playerSelectedColor",false);
-            $(".selected").removeClass("selected");  
-
-          } else {
-            $(event.target).addClass("selected");
-            console.log(Session.get("game1SelectedColor"))
-          }
-      }
-
-    }
-    
+      gColor(event)    
   },
   "click .next" :function(event){
     Session.set("page" , 2 );
@@ -256,157 +262,11 @@ Template.game2.helpers({
 
 Template.game2.events({
   "click .pColor" : function (event) {
-    if (Session.get("playerSelectedColor")) {
-        //change color
-        Session.set("playerSelectedColor" , $(event.target).attr('data'));
-        console.log(Session.get("playerSelectedColor"))
-        $(event.target).addClass("selected");
-        $(event.target).parent().siblings().children().removeClass("selected");
-    } else {
-       Session.set("playerSelectedColor" , $(event.target).attr('data'));
-       $(event.target).addClass("selected");
-       console.log(Session.get("playerSelectedColor"))
+    pColor(event)
 
-
-         if (Session.get("game1SelectedColor") && Session.get("game2SelectedColor")) {
-           console.log("player game")
-           if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="red") && (Session.get("game2SelectedColor")==="red"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="orange")) {
-                  console.log('done^2');
-                  $(event.target).addClass("selected");
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 10);
-                 console.log(Session.get("score"))               
-
-           }
-
-
-            else {if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="green")) {
-                  console.log('done^3');
-                  $(event.target).addClass("selected");
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 10) 
-                 console.log(Session.get("score"))               
-
-            } else {if ((Session.get("game1SelectedColor")==="red"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="red")&&(Session.get("playerSelectedColor")==="purple")) {
-                  console.log('done^4');
-                  $(event.target).addClass("selected");
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 10)
-                 console.log(Session.get("score"))               
-            } else {
-              if (Session.get("game1SelectedColor")&&Session.get("game2SelectedColor")&&Session.get("playerSelectedColor")) {
-                 $(event.target).addClass("selected");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 $(".selected").removeClass("selected");                 
-              }
-            }
-                  
-            }
-          }
-
-   //simple match
-        } else {
-                if (Session.get("playerSelectedColor") === Session.get("game1SelectedColor")) {
-                 $(event.target).addClass("selected");
-                 console.log ('simple match');
-                 $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 5)
-                 console.log(Session.get("score"))               
-
-                } else {
-                 if (Session.get("playerSelectedColor")&&Session.get("game1SelectedColor")) {
-                 $(event.target).addClass("selected");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 $(".selected").removeClass("selected");
-                 }else {
-                  $(event.target).addClass("selected");
-                  console.log(Session.get("playerSelectedColor"))
-                 }
-
-                }
-         }
-
-    }
-   
   },
   "click .gColor" : function (event) {
-
-    if (Session.get("game1SelectedColor")) {
-        Session.set("game2SelectedColor" , $(event.target).attr('data'));
-        $(event.target).addClass("selected");
-
-    //none used code
-        if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="red") && (Session.get("game2SelectedColor")==="red"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="orange")) {
-                  console.log('done^2');
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);          
-
-        }else{
-          if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="green")) {
-                  console.log('done^3');
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false); 
-          } else {
-            if ((Session.get("game1SelectedColor")==="red"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="red")&&(Session.get("playerSelectedColor")==="purple")) {
-                  console.log('done^4');
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false); 
-            } else {
-              if (Session.get("game1SelectedColor")&&Session.get("game2SelectedColor")&&Session.get("playerSelectedColor")) {
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 $(".selected").removeClass("selected");                
-              }
-            }
-          }
-        }
-//simple match....
-    } else {
-
-      Session.set("game1SelectedColor" , $(event.target).attr('data'));
-      $(event.target).addClass("selected");
-      if (Session.get("game1SelectedColor")===Session.get("playerSelectedColor")) {
-      console.log(Session.get("game1SelectedColor"));
-      $(".selected").css("display","none");
-      Session.set("game1SelectedColor",false);
-      Session.set("playerSelectedColor",false)
-      Session.set("score" , Session.get("score") + 5)
-      } else {
-          if (Session.get("game1SelectedColor")&&Session.get("playerSelectedColor")) {
-            $(event.target).addClass("selected");
-            Session.set("game1SelectedColor",false);
-            Session.set("playerSelectedColor",false);
-            $(".selected").removeClass("selected");  
-
-          } else {
-            $(event.target).addClass("selected");
-            console.log(Session.get("game1SelectedColor"))
-          }
-      }
-
-    }
-    
+     gColor(event)  
   },
   "click .next" :function(event){
     Session.set("game1SelectedColor",false);
@@ -444,157 +304,10 @@ Template.game3.helpers({
 
 Template.game3.events({
   "click .pColor" : function (event) {
-    if (Session.get("playerSelectedColor")) {
-        //change color
-        Session.set("playerSelectedColor" , $(event.target).attr('data'));
-        console.log(Session.get("playerSelectedColor"))
-        $(event.target).addClass("selected");
-        $(event.target).parent().siblings().children().removeClass("selected");
-    } else {
-       Session.set("playerSelectedColor" , $(event.target).attr('data'));
-       $(event.target).addClass("selected");
-       console.log(Session.get("playerSelectedColor"))
-
-
-         if (Session.get("game1SelectedColor") && Session.get("game2SelectedColor")) {
-           console.log("player game")
-           if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="red") && (Session.get("game2SelectedColor")==="red"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="orange")) {
-                  console.log('done^2');
-                  $(event.target).addClass("selected");
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 10);
-                 console.log(Session.get("score"))               
-
-           }
-
-
-            else {if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="green")) {
-                  console.log('done^3');
-                  $(event.target).addClass("selected");
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 10) 
-                 console.log(Session.get("score"))               
-
-            } else {if ((Session.get("game1SelectedColor")==="red"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="red")&&(Session.get("playerSelectedColor")==="purple")) {
-                  console.log('done^4');
-                  $(event.target).addClass("selected");
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 10)
-                 console.log(Session.get("score"))               
-            } else {
-              if (Session.get("game1SelectedColor")&&Session.get("game2SelectedColor")&&Session.get("playerSelectedColor")) {
-                 $(event.target).addClass("selected");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 $(".selected").removeClass("selected");                 
-              }
-            }
-                  
-            }
-          }
-
-   //simple match
-        } else {
-                if (Session.get("playerSelectedColor") === Session.get("game1SelectedColor")) {
-                 $(event.target).addClass("selected");
-                 console.log ('simple match');
-                 $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("score" , Session.get("score") + 5)
-                 console.log(Session.get("score"))               
-
-                } else {
-                 if (Session.get("playerSelectedColor")&&Session.get("game1SelectedColor")) {
-                 $(event.target).addClass("selected");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 $(".selected").removeClass("selected");
-                 }else {
-                  $(event.target).addClass("selected");
-                  console.log(Session.get("playerSelectedColor"))
-                 }
-
-                }
-         }
-
-    }
-   
+    pColor(event) 
   },
   "click .gColor" : function (event) {
-
-    if (Session.get("game1SelectedColor")) {
-        Session.set("game2SelectedColor" , $(event.target).attr('data'));
-        $(event.target).addClass("selected");
-
-    //none used code
-        if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="red") && (Session.get("game2SelectedColor")==="red"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="orange")) {
-                  console.log('done^2');
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);          
-
-        }else{
-          if ((Session.get("game1SelectedColor")==="yellow"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="yellow")&&(Session.get("playerSelectedColor")==="green")) {
-                  console.log('done^3');
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false); 
-          } else {
-            if ((Session.get("game1SelectedColor")==="red"||Session.get("game1SelectedColor")==="blue") && (Session.get("game2SelectedColor")==="blue"||Session.get("game2SelectedColor")==="red")&&(Session.get("playerSelectedColor")==="purple")) {
-                  console.log('done^4');
-                  $(".selected").css("display","none");
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false); 
-            } else {
-              if (Session.get("game1SelectedColor")&&Session.get("game2SelectedColor")&&Session.get("playerSelectedColor")) {
-                 Session.set("playerSelectedColor",false)
-                 Session.set("game1SelectedColor",false);
-                 Session.set("game2SelectedColor",false);
-                 $(".selected").removeClass("selected");                
-              }
-            }
-          }
-        }
-//simple match....
-    } else {
-
-      Session.set("game1SelectedColor" , $(event.target).attr('data'));
-      $(event.target).addClass("selected");
-      if (Session.get("game1SelectedColor")===Session.get("playerSelectedColor")) {
-      console.log(Session.get("game1SelectedColor"));
-      $(".selected").css("display","none");
-      Session.set("game1SelectedColor",false);
-      Session.set("playerSelectedColor",false)
-      Session.set("score" , Session.get("score") + 5)
-      } else {
-          if (Session.get("game1SelectedColor")&&Session.get("playerSelectedColor")) {
-            $(event.target).addClass("selected");
-            Session.set("game1SelectedColor",false);
-            Session.set("playerSelectedColor",false);
-            $(".selected").removeClass("selected");  
-
-          } else {
-            $(event.target).addClass("selected");
-            console.log(Session.get("game1SelectedColor"))
-          }
-      }
-
-    }
-    
+    gColor(event)  
   },
   "click .next" :function(event){
     Session.set("page" , 4 );
